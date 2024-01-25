@@ -8,7 +8,7 @@ export const OrderItem = ({ left, right, nobold, noborder, decoration }) => {
         </div>
         <div className="flex-1 flex pr-4 items-center justify-end content-around">
             {decoration ? 
-            <Image src="./XRP.svg" width={20} height={20} className="mr-2"/>
+            <Image src={decoration} width={20} height={20} className="mr-2"/>
             : null}
           <p className={`text-primary ${nobold ? 'font-semibold' : 'font-bold'}`}>{right}</p>
         </div>

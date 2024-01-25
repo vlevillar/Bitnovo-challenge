@@ -1,10 +1,16 @@
 import "@/app/globals.css"
 import { Button } from "@/components/button";
 import { Footer } from "@/components/footer";
-import { Input } from "@/components/input";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const UnsuccessfullPayment = () => {
+    const router = useRouter();
+
+    const redirectToHomePage = () => {
+        router.push('/');
+    };
+
     return (
         <>
             <section className="flex items-center justify-center h-[92vh]">
@@ -19,7 +25,7 @@ const UnsuccessfullPayment = () => {
                     <p>Lorem ipsum dolor sit amet consectetur. Laoreet blandit auctor et varius dolor elit facilisi enim. Nulla ut ut eu nunc.</p>
                 </div>
                 <div className="w-full">
-                    <Button text='Crear nuevo pago'/>
+                    <Button text='Crear nuevo pago' onClick={redirectToHomePage}/>
                 </div>
             </div>
         </section>
