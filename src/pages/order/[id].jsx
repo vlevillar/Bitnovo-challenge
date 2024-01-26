@@ -1,8 +1,10 @@
+'use client'
 import "@/app/globals.css"
 import { Footer } from '@/components/footer';
 import useCurrencies from "@/hooks/useCurrencies";
 import { OrderSummary } from '@/templates/orderSummary';
 import { Payment } from '@/templates/payment';
+import Image from "next/image";
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
@@ -13,9 +15,6 @@ const Order = () => {
     const [orderInfo, setOrderInfo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    console.log(orderInfo);
-
 
     useEffect(() => {
         const redirectOnStatus = (status) => {
@@ -43,11 +42,8 @@ const Order = () => {
         
                 const fetchedData = await response.json();
 
-                console.log(fetchedData);
         
                 setOrderInfo(Array.isArray(fetchedData) ? fetchedData[0] : fetchedData);
-                console.log(orderInfo);
-                // Ahora puedes utilizar fetchedData en este bloque
                 redirectOnStatus(fetchedData[0].status);
             } catch (error) {
                 setError(error.message);
@@ -61,7 +57,6 @@ const Order = () => {
         if (id) {
             fetchOrderInfo();
     
-            // Establecer WebSocket cuando el ID está disponible
             const socket = new WebSocket(`wss://payments.pre-bnvo.com/ws/${id}`);
             console.log(socket);
     
@@ -85,7 +80,6 @@ const Order = () => {
                 console.log('WebSocket cerrado:', event);
             };
     
-            // Importante: Cerrar el WebSocket cuando el componente se desmonta
             return () => {
                 socket.close();
             };
@@ -95,7 +89,21 @@ const Order = () => {
 
 
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+        <>
+        <section className="flex items-center justify-center h-[92vh]">
+            <div className="flex items-center justify-center w-[75rem] h-[35rem] gap-8 p-8">
+                <div className="flex-1 h-full flex-col items-center justify-center gap-6">
+                    <Image src="/loading.gif" width={75} height={75}/>
+                </div>
+                <div className="flex-1 h-full items-center justify-center">
+                    <Image src="/loading.gif" width={75} height={75}/>
+                </div>
+            </div>
+        </section>
+        <Footer />
+    </>
+    )
     }
 
     if (error) {

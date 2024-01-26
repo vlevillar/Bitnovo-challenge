@@ -12,9 +12,9 @@ export const CreatePayment = () => {
     const [selectedCurrency, setSelectedCurrency] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [amount, setAmount] = useState('');
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [description, setDescription] = useState('');
 
-    console.log(currencies);
 
     useEffect(() => {
         if (currencies.length > 0) {
@@ -39,13 +39,15 @@ export const CreatePayment = () => {
         setIsOpen(!isOpen);
     };
 
-    const isFormCompleted = () => !!amount && !!selectedCurrency && !!description;
+    const isFormCompleted = () => !!amount && !!selectedCurrency && !!description && !formSubmitted;
 
     const handleSubmit = async () => {
         if (isFormCompleted()) {
+            setFormSubmitted(true); 
+    
             const apiUrl = "https://payments.pre-bnvo.com/api/v1/orders/";
             const deviceId = process.env.NEXT_PUBLIC_DEVICE_ID;
-
+    
             try {
                 const response = await fetch(apiUrl, {
                     method: "POST",
@@ -58,19 +60,21 @@ export const CreatePayment = () => {
                         notes: description,
                     }),
                 });
-
+    
                 if (response.ok) {
                     const responseData = await response.json();
-                    console.log("Respuesta exitosa:", responseData);
                     router.push(`/order/${responseData.identifier}`);
                 } else {
                     console.error("Error en la solicitud:", response.status, response.statusText);
                 }
             } catch (error) {
                 console.error("Error en la solicitud:", error);
+            } finally {
+                setFormSubmitted(false);
             }
         }
     };
+    
 
 
     return (
