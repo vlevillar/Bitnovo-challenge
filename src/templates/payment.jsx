@@ -14,6 +14,8 @@ export const Payment = ({ orderInfo }) => {
   const [remainingTime, setRemainingTime] = useState(15 * 60);
   const [selectedOption, setSelectedOption] = useState("smartQR");
 
+  console.log(selectedOption);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setRemainingTime((prevTime) => {
@@ -53,13 +55,13 @@ export const Payment = ({ orderInfo }) => {
             text="Smart QR"
             isGroup
             onClick={() => handleOptionChange("smartQR")}
-            customStyles={selectedOption === "smartQR" ? "bg-[#035AC5]" : "bg-transparent text-[#647184]"}
+            customStyles={selectedOption === "smartQR" ? "bg-[#035AC5]" : "bg-[#647184]"}
           />
           <Button
             text="Web3"
             isGroup
             onClick={() => handleOptionChange("Web3")}
-            customStyles={selectedOption === "Web3" ? "bg-[#035AC5]" : "bg-transparent text-[#647184]"}
+            customStyles={selectedOption === "Web3" ? "bg-[#035AC5]" : "bg-[#647184]"}
           />
         </div>
         <div>

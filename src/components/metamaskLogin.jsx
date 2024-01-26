@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export const ConnectWalletButton = ({ onConnectStatusChange }) => {
     const { sdk, connected, connecting, account } = useSDK();
-    console.log(account);
     if (account !== undefined) {
       onConnectStatusChange(true);
   }else onConnectStatusChange(false)
