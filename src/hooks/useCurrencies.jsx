@@ -12,7 +12,7 @@ const useCurrencies = () => {
       try {
         const response = await fetch(apiUrl, {
           headers: {
-            'X-Device-Id': process.env.NEXT_PUBLIC_DEVICE_ID,
+            'X-Device-Id': "53a79755-fc18-4360-ba50-f2404e280c2e",
           },
         });
 

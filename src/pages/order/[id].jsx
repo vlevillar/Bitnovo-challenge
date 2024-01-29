@@ -28,7 +28,7 @@ const Order = () => {
       
           const fetchOrderInfo = async () => {
             try {
-                const deviceId = process.env.NEXT_PUBLIC_DEVICE_ID;
+                const deviceId = "53a79755-fc18-4360-ba50-f2404e280c2e";
         
                 const response = await fetch(`https://payments.pre-bnvo.com/api/v1/orders/info/${id}`, {
                     headers: {
